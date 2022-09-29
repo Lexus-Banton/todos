@@ -53,7 +53,7 @@ export async function deleteAllTodos() {
     const user = getUser();
 
     // > Part D: delete all todos for this user in supabase:
-
+    return await client.from('todos').delete().eq('user_id', user.id);
     // Supabase doesn't allow deleting without a where clause,
     // which is a good thing it most cases because we generally
     // don't want to delete every single row from the database.
@@ -62,6 +62,7 @@ export async function deleteAllTodos() {
     // Row Level Security (RLS) does for us automatically,
     // which is appending a condition on the server that does
     // what this ".eq" does.
+
     //
     // But the supabase client in the browser doesn't know about this,
     // so it helps us by making sure we aren't deleting the whole table!
